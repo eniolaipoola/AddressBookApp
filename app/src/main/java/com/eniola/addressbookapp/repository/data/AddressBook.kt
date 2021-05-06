@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Copyright (c) 2021 Eniola Ipoola
@@ -11,20 +12,23 @@ import com.google.gson.annotations.SerializedName
  * Created on 05-May-2021
  */
 
-/*@Parcelize
-data class UserContact (
-    @PrimaryKey
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("title")
-    val title: String,
+@Parcelize
+@Entity
+data class Contact(
     @SerializedName("firstName")
     val firstName: String,
     @SerializedName("lastName")
     val lastName: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("picture")
-    val picture: String
-): Parcelable*/
-
+    @SerializedName("phoneNumber")
+    val phoneNumber: String,
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("updatedAt")
+    val updatedAt: String
+): Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    var id: Long? = null
+}

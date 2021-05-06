@@ -3,8 +3,9 @@ package com.eniola.addressbookapp.repository
 import android.content.Context
 import androidx.room.*
 import com.eniola.addressbookapp.BuildConfig
+import com.eniola.addressbookapp.repository.data.Contact
 
-/*@Database(entities = [], version = 1, exportSchema = false)*/
+@Database(entities = [Contact::class], version = 1, exportSchema = false)
 abstract class AppRoomDatabase: RoomDatabase()  {
     companion object {
         private val DATABASE_NAME =
@@ -23,5 +24,7 @@ abstract class AppRoomDatabase: RoomDatabase()  {
             return sInstance
         }
     }
+
+    abstract fun contactDao(): ContactDao
 
 }
