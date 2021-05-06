@@ -110,6 +110,11 @@ class CreateContactFragment(var listener: RefetchAllContact) : DaggerDialogFragm
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.cancelJob()
+    }
+
     interface RefetchAllContact {
         fun reFetchContacts()
     }

@@ -15,12 +15,17 @@ interface ContactDao {
     @Query("select * from Contact")
     suspend fun fetchAllContacts(): List<Contact>
 
+    @Query("select * from Contact where phoneNumber=:phoneNumber")
+    suspend fun fetchContactByPhoneNumber(phoneNumber: String): Contact
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewContact(contactDetails: Contact)
 
-    @Query("UPDATE Contact set firstName=:firstName, lastName=:lastName, email =:email, phoneNumber=:phoneNumber, updatedAt=:updatedAt where id =:contact_id")
-    suspend fun updateContact(contact_id: Long, firstName: String, lastName: String, email: String,
-                              phoneNumber: String, updatedAt: String)
+    @Query("UPDATE Contact set firstName=:firstName, lastName=:lastName, email =:email, " +
+            "phoneNumber=:phoneNumber, updatedAt=:updatedAt where id =:contact_id")
+    suspend fun updateContact(
+        contact_id: Long, firstName: String, lastName: String, email: String,
+        phoneNumber: String, updatedAt: String)
 
     @Query("DELETE from Contact where id=:contactId")
     suspend fun deleteContact(contactId: String)
