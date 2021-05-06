@@ -90,7 +90,28 @@ class ContactViewModel @Inject constructor(
         }
     }
 
-    fun editContact(contactId: String) {
+    fun updateContact(id: Long, firstName: String, lastName: String, email: String,
+                      phoneNumber: String) {
+        runIO {
+            when(val newContact = safeDatabaseCall {
+                val currentTimestamp = System.currentTimeMillis()
+                repository.updateContact(id,
+                    firstName,lastName,email,phoneNumber, currentTimestamp.toString()
+                )
+            }) {
+
+                is ResultWrapper.Success -> {
+                    state.postValue(ViewState.LOADING(false))
+                    state.postValue(ViewState.SUCCESS("Contact Successfully Updated"))
+                }
+
+                is ResultWrapper.Error -> {
+                    state.postValue(ViewState.LOADING(false))
+                    state.postValue(ViewState.ERROR(newContact.errorMessage))
+
+                }
+            }
+        }
 
     }
 

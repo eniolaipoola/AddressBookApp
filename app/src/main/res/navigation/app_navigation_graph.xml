@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation_graph"
-    app:startDestination="@id/createContactFragment">
+    app:startDestination="@id/contactListFragment">
 
     <fragment
-        android:id="@+id/createContactFragment"
+        android:id="@+id/contactListFragment"
         android:name="com.eniola.addressbookapp.ui.ContactListFragment"
         android:label="fragment_create_contact"
         tools:layout="@layout/fragment_contact_list">
 
         <action
             android:id="@+id/action_create_new_contact"
-            app:destination="@id/createContactFragment2" />
+            app:destination="@id/createContactFragment" />
     </fragment>
 
     <dialog
-        android:id="@+id/createContactFragment2"
+        android:id="@+id/createContactFragment"
         android:name="com.eniola.addressbookapp.ui.CreateContactFragment"
         android:label="fragment_create_contact"
         tools:layout="@layout/fragment_create_contact" />
-
 
 </navigation>

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eniola.addressbookapp.R
+import com.eniola.addressbookapp.repository.data.Contact
+import com.eniola.addressbookapp.utility.UPDATE_CONTACT
 import com.eniola.addressbookapp.utility.hide
 import com.eniola.addressbookapp.utility.show
 import com.eniola.addressbookapp.utility.toast
@@ -16,12 +18,13 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_contact_list.*
 import javax.inject.Inject
 
-class ContactListFragment : DaggerFragment() {
+class ContactListFragment : DaggerFragment(), ContactListAdapter.OnEditIconClickedListener,
+    CreateContactFragment.RefetchAllContact {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by viewModels<ContactViewModel> { viewModelFactory }
-    private val adapter by lazy { ContactListAdapter() }
+    private val adapter by lazy { ContactListAdapter(this) }
 
 
     private fun observeData() {
@@ -74,9 +77,32 @@ class ContactListFragment : DaggerFragment() {
 
         create_contact_fab.setOnClickListener {
             //launch dialog fragment that shows create contact page
-            findNavController().navigate(R.id.action_create_new_contact)
+            val createContactFragment = CreateContactFragment(this)
+            val fragmentTransaction: FragmentTransaction = childFragmentManager.beginTransaction()
+            fragmentTransaction.add(createContactFragment, CreateContactFragment::class.java.name)
+            fragmentTransaction.commit()
+
         }
 
         observeData()
     }
+
+    override fun editContact(contactDetails: Contact) {
+        //inflate create contact fragment and perform update
+        val bundle = Bundle()
+        bundle.putParcelable("contactItem", contactDetails)
+        bundle.putString("source", UPDATE_CONTACT)
+
+        val createContactFragment = CreateContactFragment(this)
+        createContactFragment.arguments = bundle
+        val fragmentTransaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        fragmentTransaction.add(createContactFragment, CreateContactFragment::class.java.name)
+        fragmentTransaction.commit()
+    }
+
+    override fun reFetchContacts() {
+        viewModel.fetchAllContacts()
+    }
+
+
 }

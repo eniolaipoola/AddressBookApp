@@ -12,8 +12,10 @@ class ContactRepository @Inject constructor(
         return database.contactDao().fetchAllContacts()
     }
 
-    suspend fun editContact(contactDetails: Contact){
-        return database.contactDao().updateContact(contactDetails)
+    suspend fun updateContact(contact_id: Long, firstName: String, lastName: String, email: String,
+                              phoneNumber: String, updatedAt: String){
+        return database.contactDao().updateContact(contact_id, firstName, lastName, email,
+            phoneNumber, updatedAt)
     }
 
     suspend fun deleteContact(contactId: String) {

@@ -13,6 +13,9 @@ import kotlinx.coroutines.*
  * Created on 06-May-2021
  */
 
+const val UPDATE_CONTACT = "UPDATE_CONTACT"
+
+
 fun ViewModel.runIO(function: suspend CoroutineScope.() -> Unit){
     viewModelScope.launch (Dispatchers.IO) {
         function()

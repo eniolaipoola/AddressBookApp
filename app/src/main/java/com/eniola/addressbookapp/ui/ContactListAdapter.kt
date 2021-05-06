@@ -11,7 +11,7 @@ import com.eniola.addressbookapp.repository.data.Contact
 import kotlinx.android.synthetic.main.item_contacts_list.view.*
 
 
-class ContactListAdapter
+class ContactListAdapter(val listener: OnEditIconClickedListener)
     : RecyclerView.Adapter<ContactListAdapter.TransactionViewHolder>() {
 
     private var userContact = mutableListOf<Contact>()
@@ -41,6 +41,10 @@ class ContactListAdapter
         holder.contactPhoneNumber.text = item.phoneNumber
         holder.contactName.text = """${item.firstName} ${item.lastName}"""
 
+        holder.editContact.setOnClickListener {
+            listener.editContact(item)
+        }
+
     }
 
     class TransactionViewHolder(view: View)
@@ -49,7 +53,11 @@ class ContactListAdapter
         val contactName = view.contact_name
         val contactEmail = view.contact_email
         val contactPhoneNumber = view.contact_phone_number
-        val userItem = view.contactItem
+        val editContact = view.edit_contact
+    }
+
+    interface OnEditIconClickedListener {
+        fun editContact(contactDetails: Contact)
     }
 
 }
