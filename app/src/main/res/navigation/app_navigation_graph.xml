@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation_graph"
+    app:startDestination="@id/contactListFragment">
+
+    <fragment
+        android:id="@+id/contactListFragment"
+        android:name="com.eniola.addressbookapp.ui.ContactListFragment"
+        android:label="fragment_create_contact"
+        tools:layout="@layout/fragment_contact_list">
+
+        <action
+            android:id="@+id/action_create_new_contact"
+            app:destination="@id/createContactFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/createContactFragment"
+        android:name="com.eniola.addressbookapp.ui.CreateContactFragment"
+        android:label="fragment_create_contact"
+        tools:layout="@layout/fragment_create_contact" />
+
+</navigation>

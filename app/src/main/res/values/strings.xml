@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AddressBookApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_contact_text">Add Contact</string>
+    <string name="first_name">First Name</string>
+    <string name="add_last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_new_contact_text">Add New Contact</string>
+    <string name="name">Eniola Ipoola</string>
+    <string name="phone_number_text">07063736144</string>
+    <string name="email_sample">eniolaipoola@gmail.com</string>
 </resources>
